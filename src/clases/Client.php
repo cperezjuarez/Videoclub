@@ -21,16 +21,17 @@ class Client {
     }
 
     public function teLlogat(Soport $s): bool {
-        $llogat = false; // Variable que devolveremos para saber si el soporte esta alquilado o no.
-
-        // Por cada soporte de la lista, comprovamos si es el que nos pasan por parámetro
-        forEach($this->soportsLlogats as $soport) {
-            if ($soport->titol == $s->titol) {
-                $llogat = true; // Si lo encontramos cambiamos la variable a true
-            }
-        }
-
-        return $llogat;
+        return in_array($s, $this->soportsLlogats);
+//        $llogat = false; // Variable que devolveremos para saber si el soporte esta alquilado o no.
+//
+//        // Por cada soporte de la lista, comprovamos si es el que nos pasan por parámetro
+//        forEach($this->soportsLlogats as $soport) {
+//            if ($soport->titol == $s->titol) {
+//                $llogat = true; // Si lo encontramos cambiamos la variable a true
+//            }
+//        }
+//
+//        return $llogat;
     }
 
     public function llogar(Soport $s): bool {
@@ -38,7 +39,7 @@ class Client {
 
         // Mirmos que el soporte no esté ya alquilado
         $llogat = self::teLlogat($s);
-        if($llogat) {echo "Llogat correctament: $s->titol a client: $this->nom";} // Mensaje
+        if($llogat) {echo "Ja tens aquest suport \" $s->titol \" llogat";} // Mensaje
 
         // Miramos que no se haya superado la quota de alquiler
         $quotaSuperada = true;
@@ -46,7 +47,7 @@ class Client {
         if (count($this->soportsLlogats) < $this->maxLloguerConcurrent) {
             $quotaSuperada = false;
         } else {
-            echo "Llogat correctament: $s->titol a client: $this->nom"; // Mensaje
+            echo "Has arribat al màxim de lloguers"; // Mensaje
         }
 
         // Comprobación final
@@ -64,7 +65,39 @@ class Client {
         return $llogable;
     }
 
-    //public function tornar(int $numSport): bool {}
+    public function tornar(int $numSoport): bool {
+        $tornat = false; // Variable para saber si se ha devuelto correctamente
+
+        // Buscamos el objeto por el número que nos pasan por parámetro
+        $posicio = self::cercarLlogat($numSoport);
+
+        // Si se ha encontrado el alquiler, lo quitamos
+        if ($posicio > -1) {
+            $this->numSoportsLlogats--; // Reducimos el número de soportes alquilados
+            unset($this->soportsLlogats[$posicio]); // Eliminamos el alquiler
+            $this->soportsLlogats = array_values($this->soportsLlogats); // Reordenamos los indexes
+            $tornat = true;
+        }
+
+        return $tornat;
+    }
+
+    public function cercarLlogat(int $numSoport): int {
+        // Buscamos la posición en la array del producto alquilado, en caso de no estar devolvemos -1
+        $posicio = -1;
+        $trobat = false;
+        $i = 0;
+        while (!$trobat && $i < count($this->soportsLlogats)) {
+            if ($this->soportsLlogats[$i]->getNumero() == $numSoport) {
+                $trobat = true;
+                $posicio = $i;
+            } else {
+                $i++;
+            }
+        }
+
+        return $posicio;
+    }
 
     // Getters & Setters
     public function getNumero(): int
