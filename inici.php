@@ -1,4 +1,5 @@
 <?php
+// Comprobacion clase Soport.php
 include "Soport.php";
 
 $soport1 = new Soport("Tenet", 22, 3);
