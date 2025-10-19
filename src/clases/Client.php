@@ -82,6 +82,13 @@ class Client {
         return $tornat;
     }
 
+    public function llistarLloguers(): void {
+        echo "$this->nom té " . count($this->soportsLlogats) . " lloguers: </br>";
+        forEach($this->soportsLlogats as $soport) {
+            echo $soport->mostraResum() . "</br>";
+        }
+    }
+
     public function cercarLlogat(int $numSoport): int {
         // Buscamos la posición en la array del producto alquilado, en caso de no estar devolvemos -1
         $posicio = -1;
