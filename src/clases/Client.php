@@ -9,6 +9,7 @@ class Client {
     private int $numSoportsLlogats;
     private int $maxLloguerConcurrent;
 
+
     // Métodos
     public function __construct(String $nom, int $numero, int $maxLloguerConcurrent = 3) {
         $this->nom = $nom;
@@ -105,6 +106,7 @@ class Client {
 
         return $posicio;
     }
+
 
     // Getters & Setters
     public function getNumero(): int
