@@ -1,6 +1,6 @@
 <?php
 // Comprobacion clase Soport.php
-include "src/Soport.php";
+include "src/clases/Soport.php";
 
 $soport1=new Soport("Tenet", 22, 3);
 echo "<strong>" . $soport1->titol . "</strong>";
@@ -14,7 +14,7 @@ echo "<br>";
 echo "<br>";
 
 // Comprobacion clase Soport.php
-include "src/CintaVideo.php";
+include "src/clases/CintaVideo.php";
 
 $laMevaCinta = new CintaVideo( "Los cazafantasmas", 23, 3.5, 107);
 echo "<strong>" . $laMevaCinta->titol . "</strong>";
@@ -28,7 +28,7 @@ echo "<br>";
 echo "<br>";
 
 // Comprobacion clase Dvd.php
-include "src/Dvd.php";
+include "src/clases/Dvd.php";
 $elMeuDvd = new Dvd("Origen", 24, 15, "es,en,fr", "16:9");
 echo "<strong>" . $elMeuDvd->titol . "</strong>";
 echo "<br>Preu: " . $elMeuDvd->getPreu() . " euros";
@@ -40,7 +40,8 @@ $elMeuDvd->mostraResum();
 echo "<br>";
 echo "<br>";
 
-include "src/Joc.php";
+// Comprobacion clase Joc.php
+include "src/clases/Joc.php";
 
 $elMeuJoc = new Joc("The Last of Us Part II", 26, 49.99, "PS4", 1, 1);
 echo "<strong>" . $elMeuJoc->titol . "</strong>";
