@@ -8,9 +8,11 @@ class Videoclub {
     // Atributos
     private String $nom;
     private Array $productes = [];
-    private int $numProductes;
+    private int $numProductes = 0;
     private Array $socis = [];
-    private int $numSocis;
+    private int $numSocis = 0;
+    protected int $idProducte = 1; // Variable para asignar un número a los productos
+    protected int $idSocis = 1; // Variable para asignar un número a los socios
 
 
     // Métodos
@@ -18,93 +20,100 @@ class Videoclub {
         $this->nom = $nom;
     }
 
-    private function incloureProductes(Soport $producte): int {
+    private function incloureProductes(Soport $producte): void {
         array_push($this->productes, $producte); // Añadimos el producto a la lista.
+        $this->numProductes++; // Aumentamos los número de productos disponibles
 
-        // Hacemos una comprobación para ver si el producto a sido correctamente añadido.
-        $resultat = -1;
+        $this->setIdProducte(); // Aumentamos el contador
 
-        if (array_search($producte, $this->productes)) {
-            $resultat = 1;
-        }
-
-        return $resultat;
+        // Mensaje de añadido
+        $producte->mostraResum();
+        echo "<br>======<br>
+        Inclòs soport " . $producte->getNumero() . "<br>
+        ======<br> <br>";
     }
 
     public function incloureCintaVideo(String $titol, float $preu, int $durada): void {
-        $producte = new CintaVideo($titol, 2, $preu, $durada); // Creamos el objeto
+        $producte = new CintaVideo($titol, $this->getIdProducte(), $preu, $durada); // Creamos el objeto
 
-        $resultat = $this->incloureProductes($producte); // Lo añadimos a la lista
-
-        // Mensajes del resultado
-        if ($resultat == -1) {
-            echo "bien";
-        } else if ($resultat == 1) {
-            echo "mal";
-        }
+        $this->incloureProductes($producte); // Lo añadimos a la lista
     }
 
     public function incloureDvd(String $titol, float $preu, String $idiomes, String $pantalla): void {
-        $producte = new DVD($titol, 2, $preu, $idiomes, $pantalla); // Creamos el objeto
+        $producte = new DVD($titol, $this->getIdProducte(), $preu, $idiomes, $pantalla); // Creamos el objeto
 
-        $resultat = $this->incloureProductes($producte); // Lo añadimos a la lista
-
-        // Mensajes del resultado
-        if ($resultat == -1) {
-            echo "bien";
-        } else if ($resultat == 1) {
-            echo "mal";
-        }
+        $this->incloureProductes($producte); // Lo añadimos a la lista
     }
 
     public function incloureJoc(String $titol, float $preu, String $consola, int $minJ, int $maxJ): void {
-        $producte = new Joc($titol, 2, $preu, $consola, $minJ, $maxJ); // Creamos el objeto
+        $producte = new Joc($titol, $this->getIdProducte(), $preu, $consola, $minJ, $maxJ); // Creamos el objeto
 
-        $resultat = $this->incloureProductes($producte); // Lo añadimos a la lista
-
-        // Mensajes del resultado
-        if ($resultat == -1) {
-            echo "bien";
-        } else if ($resultat == 1) {
-            echo "mal";
-        }
+        $this->incloureProductes($producte); // Lo añadimos a la lista
     }
 
     public function incloureSoci(String $nom, int $maxLloguersConcurrents = 3): void {
-        $soci = new Client($nom, $maxLloguersConcurrents); // Creamos el objeto
+        $soci = new Client($nom, $this->getIdSocis() ,$maxLloguersConcurrents); // Creamos el objeto
 
-        array_push($this->socis, $soci); // Añadimos el socio a la lista de clientes
+        array_push($this->socis, $soci); // Añadimos el socio a la lista de socios
 
-        // Hacemos una comprobación para ver si el producto a sido correctamente añadido.
-        if (array_search($soci, $this->socis)) {
-            echo "bien";
-        } else {
-            echo "mal";
-        }
+        // Aumentamos las variables del contador de socios y el contador de id
+        $this->numSocis++;
+        $this->setIdSocis();
+
+        // Mensaje
+        echo "====== <br>" . "Inclòs soci " . $soci->nom . " amb número " . $soci->getNumero() . "<br> ====== <br>";
     }
 
     public function llistarProductes(): void {
+        echo "Llista de productes<br>" . "$this->numProductes" . " productes disponibles<br><br>";
+
         foreach ($this->productes as $producte) {
             $producte->mostraResum();
+            echo "<br>------<br>";
         }
     }
 
     public function llistarSocis(): void {
+        echo "<br><br>Llista de socis <br><br>";
         foreach ($this->socis as $soci) {
-            echo "Client $soci->mostraResum() amb ". count($soci->numSoportsLlogats) ." lloguers";
+            echo $soci->mostraResum();
         }
     }
 
-    public function llogarSociProducte(int $numeroClient, $numeroSoport): void {
+    public function llogarSociProducte(int $numeroClient, int $numeroSoport): void {
         // Buscamos el producto
-        $producte = array_search($numeroSoport, $this->productes);
+        $productePosicio = -1;
+        $i = 0;
+        $producteTrobat = false;
 
-        // Buscamos el cliente
-        $soci = array_search($numeroClient, $this->socis);
+        while ($i < count($this->productes) && $producteTrobat == false) {
+            if ($this->productes[$i]->getNumero() == $numeroSoport) {
+                $productePosicio = $i;
+                $producteTrobat = true;
+            } else {
+                $i++;
+            }
+        }
 
-        // Añadimos el producto al cliente
-        $soci->llogar($producte);
-    }
+        // Buscamos el socio
+        $sociPosicio = -1;
+        $j = 0;
+        $sociTrobat = false;
+
+        while ($j < count($this->socis) && $sociTrobat == false) {
+            if ($this->socis[$j]->getNumero() == $numeroClient) {
+                $sociPosicio = $j;
+                $sociTrobat = true;
+            } else {
+                $j++;
+            }
+        }
+
+        // Añadimos el producto al socio
+        if ($producteTrobat && $sociTrobat) {
+            $this->socis[$sociPosicio]->llogar($this->productes[$productePosicio]);
+        }
+   }
 
     // Getters & setters
     public function getNom(): string
@@ -135,5 +144,25 @@ class Videoclub {
     public function setNumSocis(): void
     {
         $this->numSocis++;
+    }
+
+    protected function getIdProducte(): int
+    {
+        return $this->idProducte;
+    }
+
+    protected function setIdProducte(): void
+    {
+        $this->idProducte++;
+    }
+
+    protected function getIdSocis(): int
+    {
+        return $this->idSocis;
+    }
+
+    protected function SetIdSocis(): void
+    {
+        $this->idSocis++;
     }
 }

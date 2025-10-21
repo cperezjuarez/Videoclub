@@ -1,33 +1,37 @@
 <?php
-class  Soport // Iniciamos la clase
+class  Soport
 {
-    // Declarar atributos
+    // Atributos
     public $titol;
     protected $numero;
     private $preu;
     private static $iva = 0.21;
 
-    // Creamos Instancia de la clase
+    // Métodos
     public function __construct($titol, $numero, $preu){
         $this->titol = $titol;
         $this->numero = $numero;
         $this->preu = $preu;
     }
-    // Creamos los metodos
+
     public function getPreu()
     {
         return $this->preu;
     }
+
     public function getPreuAmbIva()
     {
         return (self::$iva * $this->preu) + $this->preu;
     }
+
     public function getNumero()
     {
         return $this->numero;
     }
-    public function mostraResum(){
-        echo "<br>" . "<i>" . $this->titol . "</i>" . "</br>" ;
-        echo $this->preu . " " . "$ " . "(IVA no Inclos)";
+
+    public function mostraResum()
+    {
+        echo "<i>" . $this->titol . "</i>" . "</br>" ;
+        echo $this->preu . " " . "€ " . "(IVA no inclos) </br>";
     }
 }

@@ -7,7 +7,7 @@ class Client {
     public String $nom;
     private int $numero;
     private array $soportsLlogats = [];
-    private int $numSoportsLlogats;
+    private int $numSoportsLlogats = 0;
     private int $maxLloguerConcurrent;
 
 
@@ -19,21 +19,21 @@ class Client {
     }
 
     public function mostraResum(): String {
-        return "$this->nom Té actius " . count($this->soportsLlogats) . " lloguers actualment. </br>";
+        return "Client $this->nom amb " . count($this->soportsLlogats) . " lloguers. </br>";
     }
 
     public function teLlogat(Soport $s): bool {
-        return in_array($s, $this->soportsLlogats);
-//        $llogat = false; // Variable que devolveremos para saber si el soporte esta alquilado o no.
-//
-//        // Por cada soporte de la lista, comprovamos si es el que nos pasan por parámetro
-//        forEach($this->soportsLlogats as $soport) {
-//            if ($soport->titol == $s->titol) {
-//                $llogat = true; // Si lo encontramos cambiamos la variable a true
-//            }
-//        }
-//
-//        return $llogat;
+//        return in_array($s, $this->soportsLlogats);
+        $llogat = false; // Variable que devolveremos para saber si el soporte esta alquilado o no.
+
+        // Por cada soporte de la lista, comprovamos si es el que nos pasan por parámetro
+        forEach($this->soportsLlogats as $soport) {
+            if ($soport->titol == $s->titol) {
+                $llogat = true; // Si lo encontramos cambiamos la variable a true
+            }
+        }
+
+        return $llogat;
     }
 
     public function llogar(Soport $s): bool {
@@ -41,7 +41,7 @@ class Client {
 
         // Mirmos que el soporte no esté ya alquilado
         $llogat = self::teLlogat($s);
-        if($llogat) {echo "Ja tens aquest suport \" $s->titol \" llogat";} // Mensaje
+        if($llogat) {echo "Ja tens aquest suport \" $s->titol \" llogat <br>";} // Mensaje
 
         // Miramos que no se haya superado la quota de alquiler
         $quotaSuperada = true;
@@ -49,7 +49,7 @@ class Client {
         if (count($this->soportsLlogats) < $this->maxLloguerConcurrent) {
             $quotaSuperada = false;
         } else {
-            echo "Has arribat al màxim de lloguers"; // Mensaje
+            echo "Has arribat al màxim de lloguers <br>"; // Mensaje
         }
 
         // Comprobación final
@@ -61,24 +61,31 @@ class Client {
         if ($llogable) {
             $this->numSoportsLlogats++; // Aumentamos el número de soportes alquilados
             array_push($this->soportsLlogats, $s); // Lo añadimos a la lista de alquilados
-            echo "Llogat correctament: $s->titol a client: $this->nom"; // Mensaje
+            echo "Llogat correctament: $s->titol a client: $this->nom <br>"; // Mensaje
         }
 
         return $llogable;
     }
 
-    public function tornar(int $numSoport): bool {
+    public function tornar(int $numSoport = -1): bool {
         $tornat = false; // Variable para saber si se ha devuelto correctamente
 
-        // Buscamos el objeto por el número que nos pasan por parámetro
-        $posicio = self::cercarLlogat($numSoport);
+        if ($numSoport != -1) {
+            // Buscamos el objeto por el número que nos pasan por parámetro
+            $posicio = self::cercarLlogat($numSoport);
 
-        // Si se ha encontrado el alquiler, lo quitamos
-        if ($posicio > -1) {
-            $this->numSoportsLlogats--; // Reducimos el número de soportes alquilados
-            unset($this->soportsLlogats[$posicio]); // Eliminamos el alquiler
-            $this->soportsLlogats = array_values($this->soportsLlogats); // Reordenamos los indexes
-            $tornat = true;
+            // Si se ha encontrado el alquiler, lo quitamos
+            if ($posicio > -1) {
+                $this->numSoportsLlogats--; // Reducimos el número de soportes alquilados
+                unset($this->soportsLlogats[$posicio]); // Eliminamos el alquiler
+                $this->soportsLlogats = array_values($this->soportsLlogats); // Reordenamos los indexes
+                $tornat = true;
+                echo $this->soportsLlogats[$posicio]->titol . " Suport retornat correctament <br>";
+            } else {
+                echo "No tens aquest suport llogat <br>";
+            }
+        } else {
+            echo "No tens aquest suport llogat <br>";
         }
 
         return $tornat;
@@ -88,6 +95,7 @@ class Client {
         echo "$this->nom té " . count($this->soportsLlogats) . " lloguers: </br>";
         forEach($this->soportsLlogats as $soport) {
             echo $soport->mostraResum() . "</br>";
+            echo "-------------------</br></br>";
         }
     }
 

@@ -1,14 +1,13 @@
 <?php
 include_once "Soport.php";
 
-class Joc extends Soport{ // Iniciamos la clase
-
-    // Declaramos atributos
+class Joc extends Soport {
+    // Atributos
     public $consola;
     private $minNumJugadors;
     private $maxNumJugadors;
 
-    // Instanciamos la clase
+    // Métodos
     public function __construct($titol, $numero, $preu, $consola, $minNumJugadors, $maxNumJugadors){
         parent::__construct($titol, $numero, $preu);
         $this->consola = $consola;
@@ -16,21 +15,17 @@ class Joc extends Soport{ // Iniciamos la clase
         $this->maxNumJugadors = $maxNumJugadors;
     }
 
-    // Creamos los metodos
     public function mostraJugadorsPossibles(){
 
-        if ($this->minNumJugadors = 1){
-            echo "<br>Per a un jugador";
-        }
-        elseif ($this->maxNumJugadors > 1){
-            echo "<br>Per a " . $this->minNumJugadors . "jugador";
-        }
-        else{
-            echo "<br>De ". $this->minNumJugadors . "a " . $this->maxNumJugadors . "jugadors";
+        if ($this->maxNumJugadors = 1){
+            echo "Per a 1 jugador";
+        } else{
+            echo "De ". $this->minNumJugadors . "a " . $this->maxNumJugadors . "jugadors";
         }
     }
+
     public function mostraResum(){
-        echo "<br>Joc per a ". $this->consola;
+        echo "Joc per " . $this->consola . ": ";
         parent::mostraResum();
         echo $this->mostraJugadorsPossibles();
     }

@@ -1,11 +1,12 @@
 <?php
 include_once "Soport.php";
 
-class Dvd extends Soport{ // Iniciamos la clase
+class Dvd extends Soport {
+    // Atributos
     public $idiomes;
     private $format;
 
-    // Creamos Instancia de la clase
+    // Métodos
     public function __construct($titol, $numero, $preu,$idiomes, $format)
     {
         parent::__construct($titol, $numero, $preu); // argumentos para el padre
@@ -13,11 +14,11 @@ class Dvd extends Soport{ // Iniciamos la clase
         $this-> format = $format;
     }
 
-    // Creamos los metodos
     public function mostraResum()
     {
+        echo "Pel·lícula en DVD ";
         parent::mostraResum();
         echo "Idiomes: " . $this->idiomes . "<br>";
-        echo "Formato: " . $this->format . "<br>";
+        echo "Formato: " . $this->format;
     }
 }

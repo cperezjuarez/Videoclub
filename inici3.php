@@ -1,6 +1,8 @@
 <?php
 include_once "src/clases/Videoclub.php"; // No incloem res més
 
+// PRODUCTES
+
 $vc = new Videoclub("Cas Concos 45 baixos");
 
 //inclouré uns quants soports de prova
@@ -15,6 +17,11 @@ $vc->incloureCintaVideo("El nombre de la Rosa", 1.5, 140);
 //llist els productes
 $vc->llistarProductes();
 echo "</br>";
+
+
+
+// SOCIS
+
 //crearé alguns socis
 $vc->incloureSoci("Tofol Verdera", 2);
 $vc->incloureSoci("Biel Calafell");

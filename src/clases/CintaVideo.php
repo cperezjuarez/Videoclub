@@ -1,21 +1,22 @@
 <?php
 include_once "Soport.php";
 
-class CintaVideo extends Soport // Iniciamos la clase
+class CintaVideo extends Soport
 {
+    // Atributos
     private $durada; // Declaramos atributo durada
 
-    // Creamos Instancia de la clase
+    // Métodos
     public function __construct($titol, $numero, $preu, $durada)
     {
         parent::__construct($titol, $numero, $preu); // solo 3 argumentos para el padre
         $this->durada = $durada;                      // inicializa duración
     }
 
-    // Creamos los metodos
     public function mostraResum()
     {
+        echo "Pel·lícula en VHS ";
         parent::mostraResum();
-        echo "<br>Durada: " . $this->durada . " minutos<br>"; // corrección de <br>
+        echo "Durada: " . $this->durada . " minutos"; // corrección de <br>
     }
 }
