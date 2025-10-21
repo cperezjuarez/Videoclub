@@ -1,49 +1,32 @@
 <?php
-// Comprobacion clase Soport.php
-include "src/Soport.php";
+include_once "src/clases/Videoclub.php"; // No incloem res més
 
-$soport1=new Soport("Tenet", 22, 3);
-echo "<strong>" . $soport1->titol . "</strong>";
-echo "<br>Preu: " . $soport1->getPreu() . " euros";
-echo "<br>Preu IVA inclos: " . $soport1->getPreuAmbIva() . " euros";
-$soport1->mostraResum();
+$vc = new Videoclub("Cas Concos 45 baixos");
 
-// Salto de linea.
+//inclouré uns quants soports de prova
+$vc->incloureJoc("God of War", 19.99, "PS4", 1, 1);
+$vc->incloureJoc("The Last of Us Part II", 49.99, "PS4", 1, 1);
+$vc->incloureDvd("Torrente", 4.5, "es","16:9");
+$vc->incloureDvd("Origen", 4.5, "es,en,fr", "16:9");
+$vc->incloureDvd("El Imperio Contraataca", 3, "es,en","16:9");
+$vc->incloureCintaVideo("Los cazafantasmas", 3.5, 107);
+$vc->incloureCintaVideo("El nombre de la Rosa", 1.5, 140);
 
-echo "<br>";
-echo "<br>";
+//llist els productes
+$vc->llistarProductes();
+echo "</br>";
+//crearé alguns socis
+$vc->incloureSoci("Tofol Verdera", 2);
+$vc->incloureSoci("Biel Calafell");
+echo "</br>";
+$vc->llogarSociProducte(1,2);
+$vc->llogarSociProducte(1,3);
+// llogar una altra vegada el soport 2 al soci 1.
+// no ha de deixar-me perquè ja el té llogat
+$vc->llogarSociProducte(1,2);
+// llogar el soport 6 al soci 1.
+// no es pot perquè el soci 1 té 2 lloguers com a màxim
+$vc->llogarSociProducte(1,6);
 
-// Comprobacion clase Soport.php
-include "src/CintaVideo.php";
-
-$laMevaCinta = new CintaVideo( "Los cazafantasmas", 23, 3.5, 107);
-echo "<strong>" . $laMevaCinta->titol . "</strong>";
-echo "<br>Preu: " . $laMevaCinta->getPreu() . " euros";
-echo "<br>Preu IVA inclos: " . $laMevaCinta->getPreuAmbIva() . " euros";
-$laMevaCinta->mostraResum();
-
-// Salto de linea.
-
-echo "<br>";
-echo "<br>";
-
-// Comprobacion clase Dvd.php
-include "src/Dvd.php";
-$elMeuDvd = new Dvd("Origen", 24, 15, "es,en,fr", "16:9");
-echo "<strong>" . $elMeuDvd->titol . "</strong>";
-echo "<br>Preu: " . $elMeuDvd->getPreu() . " euros";
-echo "<br>Preu IVA inclos: " . $elMeuDvd->getPreuAmbIva() . " euros";
-$elMeuDvd->mostraResum();
-
-// Salto de linea.
-
-echo "<br>";
-echo "<br>";
-
-include "src/Joc.php";
-
-$elMeuJoc = new Joc("The Last of Us Part II", 26, 49.99, "PS4", 1, 1);
-echo "<strong>" . $elMeuJoc->titol . "</strong>";
-echo "<br>Preu: " . $elMeuJoc->getPreu() . " euros";
-echo "<br>Preu IVA inclos: " . $elMeuJoc->getPreuAmbIVA() . " euros";
-$elMeuJoc->mostraResum();
+// llist els socis
+$vc->llistarSocis();

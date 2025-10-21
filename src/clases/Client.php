@@ -1,5 +1,6 @@
 <?php
-include_once("./Soport.php");
+include_once("Soport.php");
+include_once("Videoclub.php");
 
 class Client {
     // Atributos

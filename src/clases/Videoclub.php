@@ -1,4 +1,8 @@
 <?php
+include_once "Dvd.php";
+include_once "Joc.php";
+include_once "CintaVideo.php";
+include_once "Client.php";
 
 class Videoclub {
     // Atributos
@@ -28,7 +32,7 @@ class Videoclub {
     }
 
     public function incloureCintaVideo(String $titol, float $preu, int $durada): void {
-        $producte = new CintaVideo($titol, $preu, $durada); // Creamos el objeto
+        $producte = new CintaVideo($titol, 2, $preu, $durada); // Creamos el objeto
 
         $resultat = $this->incloureProductes($producte); // Lo añadimos a la lista
 
@@ -41,7 +45,7 @@ class Videoclub {
     }
 
     public function incloureDvd(String $titol, float $preu, String $idiomes, String $pantalla): void {
-        $producte = new DVD($titol, $preu, $idiomes, $pantalla); // Creamos el objeto
+        $producte = new DVD($titol, 2, $preu, $idiomes, $pantalla); // Creamos el objeto
 
         $resultat = $this->incloureProductes($producte); // Lo añadimos a la lista
 
@@ -54,7 +58,7 @@ class Videoclub {
     }
 
     public function incloureJoc(String $titol, float $preu, String $consola, int $minJ, int $maxJ): void {
-        $producte = new Joc($titol, $preu, $consola, $minJ, $maxJ); // Creamos el objeto
+        $producte = new Joc($titol, 2, $preu, $consola, $minJ, $maxJ); // Creamos el objeto
 
         $resultat = $this->incloureProductes($producte); // Lo añadimos a la lista
 

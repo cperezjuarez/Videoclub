@@ -1,4 +1,5 @@
 <?php
+include_once "Soport.php";
 
 class Dvd extends Soport{ // Iniciamos la clase
     public $idiomes;

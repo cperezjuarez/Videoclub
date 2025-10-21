@@ -1,4 +1,6 @@
 <?php
+include_once "Soport.php";
+
 class CintaVideo extends Soport // Iniciamos la clase
 {
     private $durada; // Declaramos atributo durada
