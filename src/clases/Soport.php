@@ -5,7 +5,7 @@ class  Soport // Iniciamos la clase
     public $titol;
     protected $numero;
     private $preu;
-    private static $iva = 1.21;
+    private static $iva = 0.21;
 
     // Creamos Instancia de la clase
     public function __construct($titol, $numero, $preu){
@@ -20,7 +20,7 @@ class  Soport // Iniciamos la clase
     }
     public function getPreuAmbIva()
     {
-        return self::$iva * $this->preu;
+        return (self::$iva * $this->preu) + $this->preu;
     }
     public function getNumero()
     {
