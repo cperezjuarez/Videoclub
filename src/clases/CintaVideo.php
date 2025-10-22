@@ -11,12 +11,14 @@ class CintaVideo extends Soport
     {
         parent::__construct($titol, $numero, $preu); // solo 3 argumentos para el padre
         $this->durada = $durada;                      // inicializa duración
+
+        $this->mostraResum();
     }
 
     public function mostraResum()
     {
-        echo "Pel·lícula en VHS ";
+        echo "<br>Pel·lícula en VHS: ";
         parent::mostraResum();
-        echo "Durada: " . $this->durada . " minutos"; // corrección de <br>
+        echo "Durada: " . $this->durada . " minutos <br>"; // corrección de <br>
     }
 }

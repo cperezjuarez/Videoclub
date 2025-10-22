@@ -27,7 +27,6 @@ class Videoclub {
         $this->setIdProducte(); // Aumentamos el contador
 
         // Mensaje de añadido
-        $producte->mostraResum();
         echo "<br>======<br>
         Inclòs soport " . $producte->getNumero() . "<br>
         ======<br> <br>";

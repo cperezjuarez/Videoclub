@@ -13,6 +13,8 @@ class Joc extends Soport {
         $this->consola = $consola;
         $this->minNumJugadors = $minNumJugadors;
         $this->maxNumJugadors = $maxNumJugadors;
+
+        $this->mostraResum();
     }
 
     public function mostraJugadorsPossibles(){
@@ -25,8 +27,8 @@ class Joc extends Soport {
     }
 
     public function mostraResum(){
-        echo "Joc per " . $this->consola . ": ";
+        echo "<br>Joc per " . $this->consola . ": ";
         parent::mostraResum();
-        echo $this->mostraJugadorsPossibles();
+        echo $this->mostraJugadorsPossibles() . "<br>";
     }
 }

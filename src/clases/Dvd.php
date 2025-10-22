@@ -12,13 +12,15 @@ class Dvd extends Soport {
         parent::__construct($titol, $numero, $preu); // argumentos para el padre
         $this-> idiomes = $idiomes;
         $this-> format = $format;
+
+        $this->mostraResum();
     }
 
     public function mostraResum()
     {
-        echo "Pel·lícula en DVD ";
+        echo "<br>Pel·lícula en DVD ";
         parent::mostraResum();
         echo "Idiomes: " . $this->idiomes . "<br>";
-        echo "Formato: " . $this->format;
+        echo "Formato: " . $this->format . "<br>";
     }
 }

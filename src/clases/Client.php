@@ -76,11 +76,11 @@ class Client {
 
             // Si se ha encontrado el alquiler, lo quitamos
             if ($posicio > -1) {
+                echo $this->soportsLlogats[$posicio]->titol . " Suport retornat correctament <br>";
                 $this->numSoportsLlogats--; // Reducimos el número de soportes alquilados
                 unset($this->soportsLlogats[$posicio]); // Eliminamos el alquiler
                 $this->soportsLlogats = array_values($this->soportsLlogats); // Reordenamos los indexes
                 $tornat = true;
-                echo $this->soportsLlogats[$posicio]->titol . " Suport retornat correctament <br>";
             } else {
                 echo "No tens aquest suport llogat <br>";
             }
