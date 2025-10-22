@@ -1,5 +1,5 @@
 <?php
-class  Soport
+abstract class Soport implements Resum
 {
     // Atributos
     public $titol;
