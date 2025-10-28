@@ -12,7 +12,7 @@ $vc->incloureDvd("Torrente", 4.5, "es","16:9");
 $vc->incloureDvd("Origen", 4.5, "es,en,fr", "16:9");
 $vc->incloureDvd("El Imperio Contraataca", 3, "es,en","16:9");
 $vc->incloureCintaVideo("Los cazafantasmas", 3.5, 107);
-$vc->incloureCintaVideo("El nombre de la Rosa", 1.5, 140);
+$vc->incloureCintaVideo("El nombre de la rosa", 1.5, 140);
 
 //llist els productes
 $vc->llistarProductes();
