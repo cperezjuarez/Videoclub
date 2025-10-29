@@ -5,6 +5,11 @@
 
 namespace Videoclub\classes;
 
+use app\CintaVideo;
+use app\Dvd;
+use app\Joc;
+use app\Soport;
+
 include_once "Dvd.php";
 include_once "Joc.php";
 include_once "CintaVideo.php";
@@ -20,6 +25,8 @@ class Videoclub
     private int $numSocis = 0;
     protected int $idProducte = 1; // Variable para asignar un número a los productos
     protected int $idSocis = 1; // Variable para asignar un número a los socios
+    private int $numProductesLlogats = 0;
+    private int $numTotalLloguers = 0;
 
 
     // Métodos
@@ -50,7 +57,7 @@ class Videoclub
 
     public function incloureDvd(string $titol, float $preu, string $idiomes, string $pantalla): void
     {
-        $producte = new DVD($titol, $this->getIdProducte(), $preu, $idiomes, $pantalla); // Creamos el objeto
+        $producte = new Dvd($titol, $this->getIdProducte(), $preu, $idiomes, $pantalla); // Creamos el objeto
 
         $this->incloureProductes($producte); // Lo añadimos a la lista
     }
@@ -182,4 +189,12 @@ class Videoclub
     {
         $this->idSocis++;
     }
+    public function getNumProductesLlogats(): int {
+        return $this->numProductesLlogats;
+    }
+
+    public function getNumTotalLloguers(): int {
+        return $this->numTotalLloguers;
+    }
+
 }
