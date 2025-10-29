@@ -1,8 +1,8 @@
 <?php
-include_once "src/clases/CintaVideo.php";
-include_once "src/clases/Dvd.php";
-include_once "src/clases/Joc.php";
-include_once "src/clases/Client.php";
+include_once "../classes/CintaVideo.php";
+include_once "../classes/Dvd.php";
+include_once "../classes/Joc.php";
+include_once "../classes/Client.php";
 
 //instanciam un parell d'objectes client
 $client1 = new Client("Bruce Wayne", 23);
@@ -12,7 +12,6 @@ $client2 = new Client("Clark Kent", 33);
 echo "</br>L'identificador del client 1 és: " . $client1->getNumero();
 echo "</br>L'identificador del client 2 és: " . $client2->getNumero();
 echo "</br>";
-
 //instancio alguns soports
 $soport1 = new CintaVideo("Los cazafantasmas", 23, 3.5, 107);
 echo "</br>";
@@ -22,14 +21,12 @@ $soport3 = new Dvd("Origen", 24, 15, "es,en,fr", "16:9");
 echo "</br>";
 $soport4 = new Dvd("El Imperio Contraataca", 4, 3, "es,en","16:9");
 echo "</br>";
-
 //Llog alguns soports
 $client1->llogar($soport1);
 $client1->llogar($soport2);
 $client1->llogar($soport3);
 
 echo "</br>";
-
 //vaig intentar llogar de nou un soport que ja té llogat
 $client1->llogar($soport1);
 
@@ -49,7 +46,7 @@ echo "</br>";
 $client1->llogar($soport4);
 echo "</br>";
 //faig un llistat dels elements llogats
-$client1->llistarLloguers();
+$client1->llistaLloguers();
 echo "</br>";
 //aquest client no té lloguers
-$client2->tornar();
+$client2->tornar(2);

@@ -1,7 +1,5 @@
 <?php
-include_once "src/clases/Videoclub.php"; // No incloem res més
-
-// PRODUCTES
+include_once "../classes/Videoclub.php"; // No incloem res més
 
 $vc = new Videoclub("Cas Concos 45 baixos");
 
@@ -12,16 +10,11 @@ $vc->incloureDvd("Torrente", 4.5, "es","16:9");
 $vc->incloureDvd("Origen", 4.5, "es,en,fr", "16:9");
 $vc->incloureDvd("El Imperio Contraataca", 3, "es,en","16:9");
 $vc->incloureCintaVideo("Los cazafantasmas", 3.5, 107);
-$vc->incloureCintaVideo("El nombre de la rosa", 1.5, 140);
+$vc->incloureCintaVideo("El nombre de la Rosa", 1.5, 140);
 
 //llist els productes
 $vc->llistarProductes();
 echo "</br>";
-
-
-
-// SOCIS
-
 //crearé alguns socis
 $vc->incloureSoci("Tofol Verdera", 2);
 $vc->incloureSoci("Biel Calafell");

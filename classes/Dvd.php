@@ -1,4 +1,6 @@
 <?php
+// Clase hija de Soport.php, esta está especializada para los productos de tipo DVD
+
 include_once "Soport.php";
 
 class Dvd extends Soport {

@@ -1,5 +1,10 @@
 <?php
-abstract class Soport implements Resum
+// Esta clase representa los productos del videoclub, es la clase padre la cuál tendrá hijos más
+// específicos de los productos
+
+include_once "Resumible.php";
+
+abstract class Soport implements Resumible
 {
     // Atributos
     public $titol;

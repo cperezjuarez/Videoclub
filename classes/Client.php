@@ -1,4 +1,7 @@
 <?php
+// Esta clase es para los clientes. En ella hay métodos de gestión de los mismos como pueden ser
+// añadir o quitar productos.
+
 include_once("Soport.php");
 include_once("Videoclub.php");
 
@@ -91,7 +94,7 @@ class Client {
         return $tornat;
     }
 
-    public function llistarLloguers(): void {
+    public function llistaLloguers(): void {
         echo "$this->nom té " . count($this->soportsLlogats) . " lloguers: </br>";
         forEach($this->soportsLlogats as $soport) {
             echo $soport->mostraResum() . "</br>";

@@ -1,4 +1,6 @@
 <?php
+// Clase hija de Soport.php, esta está especializada para los productos de tipo Videojuegos
+
 include_once "Soport.php";
 
 class Joc extends Soport {
