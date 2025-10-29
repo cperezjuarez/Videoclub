@@ -1,8 +1,13 @@
 <?php
-include_once "../classes/CintaVideo.php";
-include_once "../classes/Dvd.php";
-include_once "../classes/Joc.php";
-include_once "../classes/Client.php";
+include_once "../Dwes/ProjecteVideoclub/CintaVideo.php";
+include_once "../Dwes/ProjecteVideoclub/Dvd.php";
+include_once "../Dwes/ProjecteVideoclub/Joc.php";
+include_once "../Dwes/ProjecteVideoclub/Client.php";
+
+use Dwes\ProjecteVideoclub\CintaVideo;
+use Dwes\ProjecteVideoclub\Dvd;
+use Dwes\ProjecteVideoclub\Joc;
+use Dwes\ProjecteVideoclub\Client;
 
 //instanciam un parell d'objectes client
 $client1 = new Client("Bruce Wayne", 23);

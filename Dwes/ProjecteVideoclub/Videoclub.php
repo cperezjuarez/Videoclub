@@ -3,6 +3,8 @@
 // Esta gestiona el videoclub enterio con listas de productos y clientes. Cada objeto de esta
 // clase será un videoclub diferente
 
+namespace Dwes\ProjecteVideoclub;
+
 include_once "Dvd.php";
 include_once "Joc.php";
 include_once "CintaVideo.php";
@@ -11,9 +13,9 @@ include_once "Client.php";
 class Videoclub {
     // Atributos
     private String $nom;
-    private Array $productes = [];
+    private array $productes = [];
     private int $numProductes = 0;
-    private Array $socis = [];
+    private array $socis = [];
     private int $numSocis = 0;
     protected int $idProducte = 1; // Variable para asignar un número a los productos
     protected int $idSocis = 1; // Variable para asignar un número a los socios

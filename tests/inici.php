@@ -1,5 +1,8 @@
 <?php
-include "../classes/Joc.php";
+
+include_once("../Dwes/ProjecteVideoclub/Joc.php");
+
+use Dwes\ProjecteVideoclub\Joc;
 
 $elMeuJoc = new Joc("The Last of Us Part II", 26, 49.99, "PS4", 1, 1);
 echo "<strong>" . $elMeuJoc->titol . "</strong>`";

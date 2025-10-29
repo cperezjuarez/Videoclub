@@ -2,6 +2,8 @@
 // Esta clase es para los clientes. En ella hay métodos de gestión de los mismos como pueden ser
 // añadir o quitar productos.
 
+namespace Dwes\ProjecteVideoclub;
+
 include_once("Soport.php");
 include_once("Videoclub.php");
 
