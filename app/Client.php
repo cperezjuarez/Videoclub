@@ -2,37 +2,41 @@
 // Esta clase es para los clientes. En ella hay métodos de gestión de los mismos como pueden ser
 // añadir o quitar productos.
 
-namespace app;
+namespace Videoclub\classes;
 
 include_once("Soport.php");
 include_once("Videoclub.php");
 
 class Client {
     // Atributos
-    public String $nom;
+    public string $nom;
     private int $numero;
     private array $soportsLlogats = [];
     private int $numSoportsLlogats = 0;
     private int $maxLloguerConcurrent;
 
 
+
     // Métodos
-    public function __construct(String $nom, int $numero, int $maxLloguerConcurrent = 3) {
+    public function __construct(string $nom, int $numero, int $maxLloguerConcurrent = 3)
+    {
         $this->nom = $nom;
         $this->setNumero($numero);
         $this->maxLloguerConcurrent = $maxLloguerConcurrent;
     }
 
-    public function mostraResum(): String {
+    public function mostraResum(): string
+    {
         return "Client $this->nom amb " . count($this->soportsLlogats) . " lloguers. </br>";
     }
 
-    public function teLlogat(Soport $s): bool {
+    public function teLlogat(Soport $s): bool
+    {
 //        return in_array($s, $this->soportsLlogats);
         $llogat = false; // Variable que devolveremos para saber si el soporte esta alquilado o no.
 
         // Por cada soporte de la lista, comprovamos si es el que nos pasan por parámetro
-        forEach($this->soportsLlogats as $soport) {
+        foreach ($this->soportsLlogats as $soport) {
             if ($soport->titol == $s->titol) {
                 $llogat = true; // Si lo encontramos cambiamos la variable a true
             }
@@ -41,7 +45,8 @@ class Client {
         return $llogat;
     }
 
-    public function llogar(Soport $s): bool {
+    public function llogar(Soport $s): self { // con self hacemos que  devuelva una instancia de la misma clase.
+
         $llogable = false; // Variable para saber si se alquilará o no
 
         // Mirmos que el soporte no esté ya alquilado
@@ -65,14 +70,14 @@ class Client {
         // Si es alquilable, procedemos ello:
         if ($llogable) {
             $this->numSoportsLlogats++; // Aumentamos el número de soportes alquilados
-            array_push($this->soportsLlogats, $s); // Lo añadimos a la lista de alquilados
+            array_push($this->soportsLlogats, $s); // Lo  añadimos a la lista de alquilados
             echo "Llogat correctament: $s->titol a client: $this->nom <br>"; // Mensaje
         }
-
-        return $llogable;
+        return $this;
     }
 
-    public function tornar(int $numSoport = -1): bool {
+    public function tornar(int $numSoport = -1): bool
+    {
         $tornat = false; // Variable para saber si se ha devuelto correctamente
 
         if ($numSoport != -1) {
@@ -96,15 +101,17 @@ class Client {
         return $tornat;
     }
 
-    public function llistaLloguers(): void {
+    public function llistaLloguers(): void
+    {
         echo "$this->nom té " . count($this->soportsLlogats) . " lloguers: </br>";
-        forEach($this->soportsLlogats as $soport) {
+        foreach ($this->soportsLlogats as $soport) {
             echo $soport->mostraResum() . "</br>";
             echo "-------------------</br></br>";
         }
     }
 
-    public function cercarLlogat(int $numSoport): int {
+    public function cercarLlogat(int $numSoport): int
+    {
         // Buscamos la posición en la array del producto alquilado, en caso de no estar devolvemos -1
         $posicio = -1;
         $trobat = false;
