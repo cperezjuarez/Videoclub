@@ -45,7 +45,7 @@ class Client {
         return $llogat;
     }
 
-    public function llogar(Soport $s): self { // con self hacemos que devuelva una instancia de la misma clase.
+    public function llogar(Soport $s): self { // con self hacemos que  devuelva una instancia de la misma clase.
 
         $llogable = false; // Variable para saber si se alquilará o no
 
