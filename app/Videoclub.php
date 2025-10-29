@@ -3,7 +3,7 @@
 // Esta gestiona el videoclub enterio con listas de productos y clientes. Cada objeto de esta
 // clase será un videoclub diferente
 
-namespace Dwes\ProjecteVideoclub;
+namespace app;
 
 include_once "Dvd.php";
 include_once "Joc.php";

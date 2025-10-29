@@ -1,13 +1,10 @@
 <?php
-include_once "../Dwes/ProjecteVideoclub/CintaVideo.php";
-include_once "../Dwes/ProjecteVideoclub/Dvd.php";
-include_once "../Dwes/ProjecteVideoclub/Joc.php";
-include_once "../Dwes/ProjecteVideoclub/Client.php";
+include_once "../autoload.php";
 
-use Dwes\ProjecteVideoclub\CintaVideo;
-use Dwes\ProjecteVideoclub\Dvd;
-use Dwes\ProjecteVideoclub\Joc;
-use Dwes\ProjecteVideoclub\Client;
+use app\CintaVideo;
+use app\Client;
+use app\Dvd;
+use app\Joc;
 
 //instanciam un parell d'objectes client
 $client1 = new Client("Bruce Wayne", 23);

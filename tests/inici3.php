@@ -1,7 +1,7 @@
 <?php
-include_once "../Dwes/ProjecteVideoclub/Videoclub.php"; // No incloem res més
+include_once "../autoload.php";
 
-use Dwes\ProjecteVideoclub\Videoclub;
+use app\Videoclub;
 
 $vc = new Videoclub("Cas Concos 45 baixos");
 

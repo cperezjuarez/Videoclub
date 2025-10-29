@@ -1,7 +1,7 @@
 <?php
 // Clase hija de Soport.php, esta está especializada para los productos de tipo DVD
 
-namespace Dwes\ProjecteVideoclub;
+namespace app;
 
 include_once "Soport.php";
 

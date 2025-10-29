@@ -2,7 +2,7 @@
 // Esta clase representa los productos del videoclub, es la clase padre la cuál tendrá hijos más
 // específicos de los productos
 
-namespace Dwes\ProjecteVideoclub;
+namespace app;
 
 include_once "Resumible.php";
 
