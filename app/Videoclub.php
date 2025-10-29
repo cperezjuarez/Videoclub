@@ -3,7 +3,10 @@
 // Esta gestiona el videoclub enterio con listas de productos y clientes. Cada objeto de esta
 // clase será un videoclub diferente AAA.
 
-namespace Videoclub\classes;
+namespace app;
+
+use Dwes\ProjecteVideoclub\Util\QuotaSuperadaException;
+use Dwes\ProjecteVideoclub\Util\SoportJaLlogatException;
 
 include_once "Dvd.php";
 include_once "Joc.php";
@@ -31,7 +34,7 @@ class Videoclub
     private function incloureProductes(Soport $producte): void
     {
         array_push($this->productes, $producte); // Añadimos el producto a la lista.
-        $this->numProductes++; // Aumentamos los número de productos disponibles
+        $this->numProductes++; // Aumentamos los numero de productos disponibles
 
         $this->setIdProducte(); // Aumentamos el contador
 
@@ -125,8 +128,12 @@ class Videoclub
         }
 
         // Añadimos el producto al socio
-        if ($producteTrobat && $sociTrobat) {
-            $this->socis[$sociPosicio]->llogar($this->productes[$productePosicio]);
+        try {
+            if ($producteTrobat && $sociTrobat) {
+                $this->socis[$sociPosicio]->llogar($this->productes[$productePosicio]);
+            }
+        } catch (QuotaSuperadaException | SoportJaLlogatException $e) {
+            echo $e->getMessage();
         }
 
         return $this;

@@ -1,7 +1,9 @@
 <?php
-include_once "../classes/Videoclub.php"; // No incloem res més AAA
+include "../autoload.php";
 
-$vc = new \Videoclub\classes\Videoclub("Cas Concos 45 baixos");
+use app\Videoclub;
+
+$vc = new Videoclub("Cas Concos 45 baixos");
 
 //inclouré uns quants soports de prova
 $vc->incloureJoc("God of War", 19.99, "PS4", 1, 1);

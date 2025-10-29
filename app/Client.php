@@ -2,7 +2,10 @@
 // Esta clase es para los clientes. En ella hay métodos de gestión de los mismos como pueden ser
 // añadir o quitar productos.
 
-namespace Videoclub\classes;
+namespace app;
+
+use Dwes\ProjecteVideoclub\Util\QuotaSuperadaException;
+use Dwes\ProjecteVideoclub\Util\SoportJaLlogatException;
 
 include_once("Soport.php");
 include_once("Videoclub.php");
@@ -46,11 +49,12 @@ class Client {
 
     public function llogar(Soport $s): self { // con self hacemos que  devuelva una instancia de la misma clase.
 
-        $llogable = false; // Variable para saber si se alquilará o no
-
         // Mirmos que el soporte no esté ya alquilado
         $llogat = self::teLlogat($s);
-        if($llogat) {echo "Ja tens aquest suport \" $s->titol \" llogat <br>";} // Mensaje
+        if($llogat) {
+            echo "Ja tens aquest suport " . $s->titol . " llogat." . "</br>";
+            throw new SoportJaLlogatException("Exception: El soport ja está llogat" . "</br>");
+        }
 
         // Miramos que no se haya superado la quota de alquiler
         $quotaSuperada = true;
@@ -58,27 +62,22 @@ class Client {
         if (count($this->soportsLlogats) < $this->maxLloguerConcurrent) {
             $quotaSuperada = false;
         } else {
-            echo "Has arribat al màxim de lloguers <br>"; // Mensaje
+            echo "Has arribat al màxim de lloguers." . "</br>";
+            throw new QuotaSuperadaException("Exception: Has arribat al màxim de lloguers". "</br>");
         }
 
         // Comprobación final
         if (!$llogat && !$quotaSuperada) {
-            $llogable = true;
-        }
-
-        // Si es alquilable, procedemos ello:
-        if ($llogable) {
             $this->numSoportsLlogats++; // Aumentamos el número de soportes alquilados
-            array_push($this->soportsLlogats, $s); // Lo  añadimos a la lista de alquilados
+            array_push($this->soportsLlogats, $s); // Lo añadimos a la lista de alquilados
             echo "Llogat correctament: $s->titol a client: $this->nom <br>"; // Mensaje
         }
+
         return $this;
     }
 
-    public function tornar(int $numSoport = -1): bool
+    public function tornar(int $numSoport = -1): self
     {
-        $tornat = false; // Variable para saber si se ha devuelto correctamente
-
         if ($numSoport != -1) {
             // Buscamos el objeto por el número que nos pasan por parámetro
             $posicio = self::cercarLlogat($numSoport);
@@ -97,7 +96,7 @@ class Client {
             echo "No tens aquest suport llogat <br>";
         }
 
-        return $tornat;
+        return $this;
     }
 
     public function llistaLloguers(): void
