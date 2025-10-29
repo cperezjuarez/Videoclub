@@ -32,7 +32,6 @@ class Client {
 
     public function teLlogat(Soport $s): bool
     {
-//        return in_array($s, $this->soportsLlogats);
         $llogat = false; // Variable que devolveremos para saber si el soporte esta alquilado o no.
 
         // Por cada soporte de la lista, comprovamos si es el que nos pasan por parámetro
