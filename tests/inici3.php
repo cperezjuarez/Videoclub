@@ -26,7 +26,7 @@ $vc->llogarSociProducte(1,2)
 // no ha de deixar-me perquè ja el té llogat
     -> llogarSociProducte(1,2)
 // llogar el soport 6 al soci 1.
-// no es pot perquè el soci 1 té 2 lloguers com a màxim
+// no es pot perquè el soci 1 té 2 lloguers com a màxim.
     ->llogarSociProducte(1,6);
 
 // llist els socis
