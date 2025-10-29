@@ -8,7 +8,7 @@
 Aquesta pràctica consisteix en desenvolupar **tots els exercicis** del projecte Videoclub (EXERCICI 126 a EXERCICI 134) plantejats al bloc corresponent, integrant conceptes clau de la programació orientada a objectes amb PHP. Cal crear i modificar les classes, implementar herència, classes abstractes, interfícies i mètodes, i provar totes les funcionalitats amb els arxius `inici.php`, `inici2.php` i `inici3.php` proporcionats.
 
 ---
-## Resultats d'aprenentatge i competències
+## Resultats d'aprenentatge i competències.
 
 [Fes clic aquí per veure els resultats d'aprenentatge i competències treballades](./ras.md)
 
