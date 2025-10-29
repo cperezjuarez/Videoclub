@@ -32,3 +32,4 @@ $vc->llogarSociProducte(1,2)
 // llist els socis
 $vc->llistarSocis();
 
+//algo
