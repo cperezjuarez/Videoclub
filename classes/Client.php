@@ -70,7 +70,7 @@ class Client {
         // Si es alquilable, procedemos ello:
         if ($llogable) {
             $this->numSoportsLlogats++; // Aumentamos el número de soportes alquilados
-            array_push($this->soportsLlogats, $s); // Lo añadimos a la lista de alquilados
+            array_push($this->soportsLlogats, $s); // Lo  añadimos a la lista de alquilados
             echo "Llogat correctament: $s->titol a client: $this->nom <br>"; // Mensaje
         }
         return $this;

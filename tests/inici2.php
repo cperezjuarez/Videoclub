@@ -1,5 +1,5 @@
 <?php
-// Incluimos cada clase una sola vez para evitar "Cannot declare class ... already in use"
+// Incluimos cada clase una sola vez para evitar "Cannot declare class ...  already in use"
 include_once "../classes/CintaVideo.php";
 include_once "../classes/Dvd.php";
 include_once "../classes/Joc.php";
