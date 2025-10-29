@@ -1,7 +1,7 @@
 <?php
 // Es la clase principal, la cual centraliza las demás e interactua con Soport.php y Client.php .
 // Esta gestiona el videoclub enterio con listas de productos y clientes. Cada objeto de esta
-// clase será un videoclub diferente.
+// clase será un videoclub diferente AAA.
 
 namespace Videoclub\classes;
 

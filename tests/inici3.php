@@ -1,5 +1,5 @@
 <?php
-include_once "../classes/Videoclub.php"; // No incloem res més
+include_once "../classes/Videoclub.php"; // No incloem res més AAA
 
 $vc = new \Videoclub\classes\Videoclub("Cas Concos 45 baixos");
 
