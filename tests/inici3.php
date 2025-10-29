@@ -1,7 +1,7 @@
 <?php
 include_once "../classes/Videoclub.php"; // No incloem res més
 
-$vc = new Videoclub("Cas Concos 45 baixos");
+$vc = new \Videoclub\classes\Videoclub("Cas Concos 45 baixos");
 
 //inclouré uns quants soports de prova
 $vc->incloureJoc("God of War", 19.99, "PS4", 1, 1);
@@ -19,14 +19,16 @@ echo "</br>";
 $vc->incloureSoci("Tofol Verdera", 2);
 $vc->incloureSoci("Biel Calafell");
 echo "</br>";
-$vc->llogarSociProducte(1,2);
-$vc->llogarSociProducte(1,3);
+
+$vc->llogarSociProducte(1,2)
+    -> llogarSociProducte(1,3)
 // llogar una altra vegada el soport 2 al soci 1.
 // no ha de deixar-me perquè ja el té llogat
-$vc->llogarSociProducte(1,2);
+    -> llogarSociProducte(1,2)
 // llogar el soport 6 al soci 1.
 // no es pot perquè el soci 1 té 2 lloguers com a màxim
-$vc->llogarSociProducte(1,6);
+    ->llogarSociProducte(1,6);
 
 // llist els socis
 $vc->llistarSocis();
+

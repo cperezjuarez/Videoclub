@@ -3,28 +3,33 @@
 // Esta gestiona el videoclub enterio con listas de productos y clientes. Cada objeto de esta
 // clase será un videoclub diferente
 
+namespace Videoclub\classes;
+
 include_once "Dvd.php";
 include_once "Joc.php";
 include_once "CintaVideo.php";
 include_once "Client.php";
 
-class Videoclub {
+class Videoclub
+{
     // Atributos
-    private String $nom;
-    private Array $productes = [];
+    private string $nom;
+    private array $productes = [];
     private int $numProductes = 0;
-    private Array $socis = [];
+    private array $socis = [];
     private int $numSocis = 0;
     protected int $idProducte = 1; // Variable para asignar un número a los productos
     protected int $idSocis = 1; // Variable para asignar un número a los socios
 
 
     // Métodos
-    public function __construct(string $nom) {
+    public function __construct(string $nom)
+    {
         $this->nom = $nom;
     }
 
-    private function incloureProductes(Soport $producte): void {
+    private function incloureProductes(Soport $producte): void
+    {
         array_push($this->productes, $producte); // Añadimos el producto a la lista.
         $this->numProductes++; // Aumentamos los número de productos disponibles
 
@@ -36,26 +41,30 @@ class Videoclub {
         ======<br> <br>";
     }
 
-    public function incloureCintaVideo(String $titol, float $preu, int $durada): void {
+    public function incloureCintaVideo(string $titol, float $preu, int $durada): void
+    {
         $producte = new CintaVideo($titol, $this->getIdProducte(), $preu, $durada); // Creamos el objeto
 
         $this->incloureProductes($producte); // Lo añadimos a la lista
     }
 
-    public function incloureDvd(String $titol, float $preu, String $idiomes, String $pantalla): void {
+    public function incloureDvd(string $titol, float $preu, string $idiomes, string $pantalla): void
+    {
         $producte = new DVD($titol, $this->getIdProducte(), $preu, $idiomes, $pantalla); // Creamos el objeto
 
         $this->incloureProductes($producte); // Lo añadimos a la lista
     }
 
-    public function incloureJoc(String $titol, float $preu, String $consola, int $minJ, int $maxJ): void {
+    public function incloureJoc(string $titol, float $preu, string $consola, int $minJ, int $maxJ): void
+    {
         $producte = new Joc($titol, $this->getIdProducte(), $preu, $consola, $minJ, $maxJ); // Creamos el objeto
 
         $this->incloureProductes($producte); // Lo añadimos a la lista
     }
 
-    public function incloureSoci(String $nom, int $maxLloguersConcurrents = 3): void {
-        $soci = new Client($nom, $this->getIdSocis() ,$maxLloguersConcurrents); // Creamos el objeto
+    public function incloureSoci(string $nom, int $maxLloguersConcurrents = 3): void
+    {
+        $soci = new Client($nom, $this->getIdSocis(), $maxLloguersConcurrents); // Creamos el objeto
 
         array_push($this->socis, $soci); // Añadimos el socio a la lista de socios
 
@@ -67,7 +76,8 @@ class Videoclub {
         echo "====== <br>" . "Inclòs soci " . $soci->nom . " amb número " . $soci->getNumero() . "<br> ====== <br>";
     }
 
-    public function llistarProductes(): void {
+    public function llistarProductes(): void
+    {
         echo "Llista de productes<br>" . "$this->numProductes" . " productes disponibles<br><br>";
 
         foreach ($this->productes as $producte) {
@@ -76,14 +86,16 @@ class Videoclub {
         }
     }
 
-    public function llistarSocis(): void {
+    public function llistarSocis(): void
+    {
         echo "<br><br>Llista de socis <br><br>";
         foreach ($this->socis as $soci) {
             echo $soci->mostraResum();
         }
     }
 
-    public function llogarSociProducte(int $numeroClient, int $numeroSoport): void {
+    public function llogarSociProducte(int $numeroClient, int $numeroSoport): self
+    {
         // Buscamos el producto
         $productePosicio = -1;
         $i = 0;
@@ -116,7 +128,9 @@ class Videoclub {
         if ($producteTrobat && $sociTrobat) {
             $this->socis[$sociPosicio]->llogar($this->productes[$productePosicio]);
         }
-   }
+
+        return $this;
+    }
 
     // Getters & setters
     public function getNom(): string
