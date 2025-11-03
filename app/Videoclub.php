@@ -23,6 +23,8 @@ class Videoclub
     private int $numSocis = 0;
     protected int $idProducte = 1; // Variable para asignar un número a los productos
     protected int $idSocis = 1; // Variable para asignar un número a los socios
+    private int $numProductesLlogats = 0;
+    private int $numTotalLloguers = 0;
 
 
     // Métodos
@@ -53,7 +55,7 @@ class Videoclub
 
     public function incloureDvd(string $titol, float $preu, string $idiomes, string $pantalla): void
     {
-        $producte = new DVD($titol, $this->getIdProducte(), $preu, $idiomes, $pantalla); // Creamos el objeto
+        $producte = new Dvd($titol, $this->getIdProducte(), $preu, $idiomes, $pantalla); // Creamos el objeto
 
         $this->incloureProductes($producte); // Lo añadimos a la lista
     }
@@ -136,6 +138,150 @@ class Videoclub
             echo $e->getMessage();
         }
 
+    return $this;
+}
+
+    public function llogarSociProductes(int $numSoci, array $numerosProductos): self
+    {
+        // Buscar el socio
+        $sociTrobat = false;
+        $sociPosicio = -1;
+        $i = 0;
+
+        while (!$sociTrobat && $i < count($this->socis)) {
+            if ($this->socis[$i]->getNumero() === $numSoci) {
+                $sociTrobat = true;
+                $sociPosicio = $i;
+            }
+            $i++;
+        }
+
+        // Si no se encuentra el socio, salir
+        if (!$sociTrobat) {
+            echo "No s'ha trobat el soci amb número $numSoci.<br>";
+            return $this;
+        }
+
+        // Comprobamos que todos los productos estén disponibles
+        $totDisponible = true;
+
+        for ($i = 0; $i < count($numerosProductos); $i++) {
+            $numProducte = $numerosProductos[$i];
+            for ($j = 0; $j < count($this->productes); $j++) {
+                if ($this->productes[$j]->getNumero() === $numProducte && $this->productes[$j]->llogat === true) {
+                    $totDisponible = false;
+                }
+            }
+        }
+
+        // Si todos están disponibles, los alquilamos todos
+        if ($totDisponible) {
+            for ($i = 0; $i < count($numerosProductos); $i++) {
+                $numProducte = $numerosProductos[$i];
+                for ($j = 0; $j < count($this->productes); $j++) {
+                    if ($this->productes[$j]->getNumero() === $numProducte) {
+                        $this->socis[$sociPosicio]->llogar($this->productes[$j]);
+                        $this->productes[$j]->llogat = true; // marcar como alquilado
+                    }
+                }
+            }
+            echo "Tots els productes s'han llogat correctament al soci $numSoci.<br>";
+        } else {
+            echo "Algun producte no està disponible. No s'ha llogat cap.<br>";
+        }
+
+        return $this;
+    }
+    public function tornarSociProducte(int $numeroClient, int $numeroProducto): self
+    {
+        $sociTrobat = false;
+        $i = 0;
+        $sociPosicio = -1;
+
+        // Cercam el soci
+        while($sociTrobat == false && $i < count($this->socis)) {
+            if ($this->socis[$i]->getNumero() === $numeroClient) {
+                $sociTrobat = true;
+                $sociPosicio = $i;
+            } else {
+                $i++;
+            }
+        }
+
+        // Cercam si el producte está llogat
+        $sopotTrobat = false;
+        $i = 0;
+        $soportPosicio = -1;
+
+        // Cercam el soci
+        while($sopotTrobat == false && $i < count($this->socis)) {
+            if ($this->productes[$i]->getNumero() === $numeroProducto) {
+                $sopotTrobat = true;
+                $soportPosicio = $i;
+            } else {
+                $i++;
+            }
+        }
+
+        // Si trobam al client tornam el soport
+        if ($sociTrobat && $this->productes[$i]->llogat === true) {
+            $this->socis[$sociPosicio]->tornar($this->productes[$soportPosicio]);
+            $this->productes[$soportPosicio]->llogat = false;
+            $this->numProductesLlogats--;
+        } else {
+            echo "El producte " . $this->productes[$soportPosicio]->getNumero() . " no està llogat. <br>";
+        }
+
+        return $this;
+    }
+
+    public function tornarSociProductes(int $numeroClient, array $numerosProductos): self
+    {
+        $sociTrobat = false;
+        $i = 0;
+        $sociPosicio = -1;
+
+        // Cercam el soci
+        while($sociTrobat == false && $i < count($this->socis)) {
+            if ($this->socis[$i]->getNumero() === $numeroClient) {
+                $sociTrobat = true;
+                $sociPosicio = $i;
+            } else {
+                $i++;
+            }
+        }
+
+        // Comprovem que tots el productes estiguin llogats
+        $totLlogat = true;
+        for ($i = 0; $i < count($numerosProductos); $i++) {
+            $numProducte = $numerosProductos[$i];
+            for ($j = 0; $j < count($this->productes); $j++) {
+                if ($this->productes[$j]->getNumero() === $numProducte && !$this->productes[$j]->llogat) {
+                    $totLlogat = false;
+                }
+            }
+        }
+
+        // Si tot está llogat, ho tornam
+        if ($sociTrobat && $totLlogat) {
+            for ($i = 0; $i < count($numerosProductos); $i++) {
+                $numProducte = $numerosProductos[$i];
+                $producteTrobat = false;
+                $i = 0;
+                while ($producteTrobat == false && $i < count($this->productes)) {}
+                if ($this->productes[$i]->getNumero() === $numProducte) {
+                    $soport = $this->productes[$i];
+                    $this->socis[$sociPosicio]->tornar($soport);
+                    $soport->llogat = false;
+                    $this->numProductesLlogats--;
+                } else {
+                    $i ++;
+                }
+            }
+        } else {
+            echo "Algun producte está llogat. No s’ha tornat cap.<br>";
+        }
+
         return $this;
     }
 
@@ -189,4 +335,12 @@ class Videoclub
     {
         $this->idSocis++;
     }
+    public function getNumProductesLlogats(): int {
+        return $this->numProductesLlogats;
+    }
+
+    public function getNumTotalLloguers(): int {
+        return $this->numTotalLloguers;
+    }
+
 }

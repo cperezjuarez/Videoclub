@@ -7,6 +7,8 @@ namespace app;
 use Dwes\ProjecteVideoclub\Util\QuotaSuperadaException;
 use Dwes\ProjecteVideoclub\Util\SoportJaLlogatException;
 
+use app\Soport;
+
 include_once("Soport.php");
 include_once("Videoclub.php");
 
@@ -17,6 +19,8 @@ class Client {
     private array $soportsLlogats = [];
     private int $numSoportsLlogats = 0;
     private int $maxLloguerConcurrent;
+    public bool $llogat = false;
+
 
 
 
@@ -71,6 +75,7 @@ class Client {
             $this->numSoportsLlogats++; // Aumentamos el número de soportes alquilados
             array_push($this->soportsLlogats, $s); // Lo añadimos a la lista de alquilados
             echo "Llogat correctament: $s->titol a client: $this->nom <br>"; // Mensaje
+            $this->llogat = true;
         }
 
         return $this;
@@ -89,6 +94,7 @@ class Client {
                 unset($this->soportsLlogats[$posicio]); // Eliminamos el alquiler
                 $this->soportsLlogats = array_values($this->soportsLlogats); // Reordenamos los indexes
                 $tornat = true;
+                $this->llogat = false;
             } else {
                 echo "No tens aquest suport llogat <br>";
             }
