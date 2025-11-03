@@ -101,43 +101,141 @@ class Videoclub
         }
     }
 
-    public function llogarSociProducte(int $numeroClient, int $numeroSoport): self
-    {
-        // Buscamos el producto
-        $productePosicio = -1;
-        $i = 0;
-        $producteTrobat = false;
+    public function llogarSociProductes(int $numSoci, array $numerosProductos): self
+{
+    // Buscar el socio
+    $sociTrobat = false;
+    $sociPosicio = -1;
+    $i = 0;
 
-        while ($i < count($this->productes) && $producteTrobat == false) {
-            if ($this->productes[$i]->getNumero() == $numeroSoport) {
-                $productePosicio = $i;
-                $producteTrobat = true;
-            } else {
-                $i++;
-            }
+    while (!$sociTrobat && $i < count($this->socis)) {
+        if ($this->socis[$i]->getNumero() === $numSoci) {
+            $sociTrobat = true;
+            $sociPosicio = $i;
         }
+        $i++;
+    }
 
-        // Buscamos el socio
-        $sociPosicio = -1;
-        $j = 0;
-        $sociTrobat = false;
-
-        while ($j < count($this->socis) && $sociTrobat == false) {
-            if ($this->socis[$j]->getNumero() == $numeroClient) {
-                $sociPosicio = $j;
-                $sociTrobat = true;
-            } else {
-                $j++;
-            }
-        }
-
-        // Añadimos el producto al socio
-        if ($producteTrobat && $sociTrobat) {
-            $this->socis[$sociPosicio]->llogar($this->productes[$productePosicio]);
-        }
-
+    // Si no se encuentra el socio, salir
+    if (!$sociTrobat) {
+        echo "No s'ha trobat el soci amb número $numSoci.<br>";
         return $this;
     }
+
+    // Comprobamos que todos los productos estén disponibles
+    $totDisponible = true;
+
+    for ($i = 0; $i < count($numerosProductos); $i++) {
+        $numProducte = $numerosProductos[$i];
+        for ($j = 0; $j < count($this->productes); $j++) {
+            if ($this->productes[$j]->getNumero() === $numProducte && $this->productes[$j]->llogat === true) {
+                $totDisponible = false;
+            }
+        }
+    }
+
+    // Si todos están disponibles, los alquilamos todos
+    if ($totDisponible) {
+        for ($i = 0; $i < count($numerosProductos); $i++) {
+            $numProducte = $numerosProductos[$i];
+            for ($j = 0; $j < count($this->productes); $j++) {
+                if ($this->productes[$j]->getNumero() === $numProducte) {
+                    $this->socis[$sociPosicio]->llogar($this->productes[$j]);
+                    $this->productes[$j]->llogat = true; // marcar como alquilado
+                }
+            }
+        }
+        echo "Tots els productes s'han llogat correctament al soci $numSoci.<br>";
+    } else {
+        echo "Algun producte no està disponible. No s'ha llogat cap.<br>";
+    }
+
+    return $this;
+}
+public function tornarSociProducte(int $numeroClient, int $numeroSoport): self
+{
+    $producteTrobat = false;
+    $productePosicio = -1;
+
+    // Busquem el producte
+    for ($i = 0; $i < count($this->productes); $i++) {
+        if ($this->productes[$i]->getNumero() === $numeroSoport) {
+            $producteTrobat = true;
+            $productePosicio = $i;
+        }
+    }
+
+    $sociTrobat = false;
+    $sociPosicio = -1;
+
+    // Busquem el soci
+    for ($j = 0; $j < count($this->socis); $j++) {
+        if ($this->socis[$j]->getNumero() === $numeroClient) {
+            $sociTrobat = true;
+            $sociPosicio = $j;
+        }
+    }
+
+    // Si els dos existeixen i el producte no està llogat
+    if ($producteTrobat && $sociTrobat) {
+        $soport = $this->productes[$productePosicio];
+        if (!$soport->llogat) {
+            $this->socis[$sociPosicio]->llogar($soport);
+            $soport->llogat = true;
+            $this->numProductesLlogats++;
+            $this->numTotalLloguers++;
+        } else {
+            echo "El producte {$soport->getNumero()} ja està llogat.<br>";
+        }
+    }
+
+    return $this;
+}
+
+public function tornarSociProducte(int $numSoci, array $numerosProductos): self
+{
+    $sociTrobat = false;
+    $sociPosicio = -1;
+
+    // Busquem el soci
+    for ($i = 0; $i < count($this->socis); $i++) {
+        if ($this->socis[$i]->getNumero() === $numSoci) {
+            $sociTrobat = true;
+            $sociPosicio = $i;
+        }
+    }
+
+    // Comprovem disponibilitat de tots els productes
+    $totDisponible = true;
+    for ($i = 0; $i < count($numerosProductos); $i++) {
+        $numProducte = $numerosProductos[$i];
+        for ($j = 0; $j < count($this->productes); $j++) {
+            if ($this->productes[$j]->getNumero() === $numProducte && $this->productes[$j]->llogat) {
+                $totDisponible = false;
+            }
+        }
+    }
+
+    // Si estan tots disponibles → llogar-los
+    if ($sociTrobat && $totDisponible) {
+        for ($i = 0; $i < count($numerosProductos); $i++) {
+            $numProducte = $numerosProductos[$i];
+            for ($j = 0; $j < count($this->productes); $j++) {
+                if ($this->productes[$j]->getNumero() === $numProducte && !$this->productes[$j]->llogat) {
+                    $soport = $this->productes[$j];
+                    $this->socis[$sociPosicio]->llogar($soport);
+                    $soport->llogat = true;
+                    $this->numProductesLlogats++;
+                    $this->numTotalLloguers++;
+                }
+            }
+        }
+    } else {
+        echo "Algun producte no està disponible. No s’ha llogat cap.<br>";
+    }
+
+    return $this;
+}
 
     // Getters & setters
     public function getNom(): string

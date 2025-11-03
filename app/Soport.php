@@ -13,6 +13,7 @@ abstract class Soport implements Resumible
     protected $numero;
     private $preu;
     private static $iva = 0.21;
+    public bool $llogat = false
 
     // Métodos
     public function __construct($titol, $numero, $preu){
