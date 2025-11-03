@@ -179,15 +179,19 @@ class Videoclub
             for ($i = 0; $i < count($numerosProductos); $i++) {
                 $numProducte = $numerosProductos[$i];
                 for ($j = 0; $j < count($this->productes); $j++) {
-                    if ($this->productes[$j]->getNumero() === $numProducte) {
-                        $this->socis[$sociPosicio]->llogar($this->productes[$j]);
-                        $this->productes[$j]->llogat = true; // marcar como alquilado
+                    try {
+                        if ($this->productes[$j]->getNumero() === $numProducte) {
+                            $this->socis[$sociPosicio]->llogar($this->productes[$j]);
+                            $this->productes[$j]->llogat = true; // marcar como alquilado
+                        }
+                    } catch (QuotaSuperadaException | SoportJaLlogatException $e) {
+                        echo $e->getMessage();
                     }
                 }
             }
             echo "Tots els productes s'han llogat correctament al soci $numSoci.<br>";
         } else {
-            echo "Algun producte no està disponible. No s'ha llogat cap.<br>";
+            echo "Algun producte no està disponible o ya está llogat. No s'ha llogat cap.<br>";
         }
 
         return $this;
