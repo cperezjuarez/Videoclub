@@ -9,12 +9,22 @@ if (isset($_POST['enviar'])) {
         echo "Debes introducir un usuario y contraseña";
         header("Location: index.php");
     } else {
+            // USER
         if ($usuario == "user" && $password == "user") {
             // almacenamos el usuario en la sesión
             session_start();
             $_SESSION['usuario'] = $usuario;
             // redirigimos a la página principal
             header("Location: main.php");
+
+            // ADMIN
+        } else if ($usuario == "admin" && $password == "admin") {
+            // almacenamos el usuario en la sesión
+            session_start();
+            $_SESSION['usuario'] = $usuario;
+            // redirigimos a la página de administración
+            header("Location: mainAdmin.php");
+
         } else {
             session_start();
             // Si las credenciales no son válidas, se vuelven a pedir

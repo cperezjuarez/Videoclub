@@ -19,17 +19,22 @@ class Client {
     private array $soportsLlogats = [];
     private int $numSoportsLlogats = 0;
     private int $maxLloguerConcurrent;
-    public bool $llogat = false;
-
-
-
+    private string $username;
+    private string $password;
 
     // Métodos
-    public function __construct(string $nom, int $numero, int $maxLloguerConcurrent = 3)
+    public function __construct(string $nom, int $numero, int $maxLloguerConcurrent = 3, string $username = '', string $password = '')
     {
         $this->nom = $nom;
         $this->setNumero($numero);
         $this->maxLloguerConcurrent = $maxLloguerConcurrent;
+        $this->setUsername($username);
+        $this->setPassword($password);
+
+        if ($username !== '') {
+            session_start();
+            $_SESSION['listaUsuarios']['nombre'] = $this->nom;
+        }
     }
 
     public function mostraResum(): string
@@ -75,7 +80,6 @@ class Client {
             $this->numSoportsLlogats++; // Aumentamos el número de soportes alquilados
             array_push($this->soportsLlogats, $s); // Lo añadimos a la lista de alquilados
             echo "Llogat correctament: $s->titol a client: $this->nom <br>"; // Mensaje
-            $this->llogat = true;
         }
 
         return $this;
@@ -94,7 +98,6 @@ class Client {
                 unset($this->soportsLlogats[$posicio]); // Eliminamos el alquiler
                 $this->soportsLlogats = array_values($this->soportsLlogats); // Reordenamos los indexes
                 $tornat = true;
-                $this->llogat = false;
             } else {
                 echo "No tens aquest suport llogat <br>";
             }
@@ -147,5 +150,25 @@ class Client {
     public function getNumSoportsLlogats(): int
     {
         return $this->numSoportsLlogats;
+    }
+
+    public function getUsername(): string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(string $username): void
+    {
+        $this->username = $username;
+    }
+
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): void
+    {
+        $this->password = $password;
     }
 }
