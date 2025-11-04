@@ -133,6 +133,9 @@ class Videoclub
         try {
             if ($producteTrobat && $sociTrobat) {
                 $this->socis[$sociPosicio]->llogar($this->productes[$productePosicio]);
+                $this->productes[$j]->llogat = true; // marcar como alquilado
+                $this->setNumProductesLlogats();
+                $this->setNumTotalLloguers();
             }
         } catch (QuotaSuperadaException | SoportJaLlogatException $e) {
             echo $e->getMessage();
@@ -183,6 +186,8 @@ class Videoclub
                         if ($this->productes[$j]->getNumero() === $numProducte) {
                             $this->socis[$sociPosicio]->llogar($this->productes[$j]);
                             $this->productes[$j]->llogat = true; // marcar como alquilado
+                            $this->setNumProductesLlogats();
+                            $this->setNumTotalLloguers();
                         }
                     } catch (QuotaSuperadaException | SoportJaLlogatException $e) {
                         echo $e->getMessage();
@@ -343,8 +348,15 @@ class Videoclub
         return $this->numProductesLlogats;
     }
 
+    public function setNumProductesLlogats(): void {
+        $this->numProductesLlogats++;
+    }
+
     public function getNumTotalLloguers(): int {
         return $this->numTotalLloguers;
     }
 
+    public function setNumTotalLloguers(): void {
+        $this->numTotalLloguers++;
+    }
 }

@@ -1,14 +1,31 @@
 <?php
-$username = $_POST["username"];
-$password = $_POST["password"];
+// Comprobamos si ya se ha enviado el formulario
+if (isset($_POST['enviar'])) {
+    $usuario = $_POST['username'];
+    $password = $_POST['password'];
 
-$username1 = 'user';
-$password1 = 'user';
-$password2 = 'admin';
-$username2 = 'admin';
-
-if ($username == $username1 || $username == $username2) {
-    if ($password == $password1) {
-
+    // validamos que recibimos los parámetros
+    if (empty($usuario) || empty($password)) {
+        echo "Debes introducir un usuario y contraseña";
+        header("Location: index.php");
+    } else {
+        if ($usuario == "user" && $password == "user") {
+            // almacenamos el usuario en la sesión
+            session_start();
+            $_SESSION['usuario'] = $usuario;
+            // redirigimos a la página principal
+            header("Location: main.php");
+        } else {
+            session_start();
+            // Si las credenciales no son válidas, se vuelven a pedir
+            header("Location: ../index.php?error");
+        }
     }
+} else if (isset($_GET['logout'])) {
+    // Recuperamos la información de la sesión
+    session_start();
+
+    // Y la destruimos
+    session_destroy();
+    header("Location: ../index.php");
 }
