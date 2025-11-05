@@ -22,6 +22,23 @@ if (!isset($_SESSION['usuario'])) {
     <input type="submit" name="logout" content="Cerrar Sesión">
 </form>
 
-<?= $_SESSION['listaUsuarios']['nombre'] ?>
+<?=
+$clientes = $_SESSION['clientes'];
+$productos = $_SESSION['productos'];
+
+$i = 1;
+echo "<p> Clientes: </p>";
+foreach ($clientes as $clave => $valor) {
+    echo "$i- $clave<br/>";
+    $j++;
+}
+
+$j = 1;
+echo "<p> Productos: </p>";
+foreach ($productos as $clave => $valor) {
+    echo "$j- $clave<br/>";
+    $j++;
+}
+?>
 </body>
 </html>

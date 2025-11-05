@@ -1,4 +1,13 @@
 <?php
+$clientes = array(
+    'user1' => 'user1',
+    'user2' => 'user2'
+);
+$productos = array(
+    'producto1' => '1',
+    'producto2' => '2'
+);
+
 // Comprobamos si ya se ha enviado el formulario
 if (isset($_POST['enviar'])) {
     $usuario = $_POST['username'];
@@ -22,6 +31,8 @@ if (isset($_POST['enviar'])) {
             // almacenamos el usuario en la sesión
             session_start();
             $_SESSION['usuario'] = $usuario;
+            $_SESSION['clientes'] = $clientes;
+            $_SESSION['productos'] = $productos;
             // redirigimos a la página de administración
             header("Location: mainAdmin.php");
 
