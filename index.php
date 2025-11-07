@@ -9,6 +9,7 @@ if (isset($_GET['error'])) {
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
     <form method="post" action="./pages/login.php">
@@ -18,7 +19,7 @@ if (isset($_GET['error'])) {
         <label for="passw">Password</label>
         <input type="password" name="password">
 
-        <input type="submit" name="enviar" content="Enviar">
+        <input type="submit" name="enviar" value="Enviar">
     </form>
 </body>
 </html>

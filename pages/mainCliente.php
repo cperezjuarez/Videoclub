@@ -19,6 +19,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página de usuario</title>
+    <link rel="stylesheet" href="../css/main.css">
 </head>
 <body>
     <h1>Bienvenido <?= $_SESSION['usuario'] ?></h1> 
@@ -32,11 +33,11 @@
      </ul>
 
     <!-- Botón para acceder al formulario de actualizar a clientes -->
-    <button onclick="location.href='formUpdateCliente.php'">Actualizar cliente</button>
+    <button class="btn" onclick="location.href='formUpdateCliente.php'">Actualizar cliente</button>
 
      <!-- Botón de cierre de sesión -->
     <form method="get" action="login.php">
-        <input type="submit" name="logout" content="Cerrar Sesión">
+        <input type="submit" name="logout" value="Logout">
     </form>
 </body>
 </html>

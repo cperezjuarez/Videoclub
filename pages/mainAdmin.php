@@ -8,6 +8,9 @@ if(!isset($_SESSION)) {
 if (!isset($_SESSION['usuario'])) {
     die("Error - debe <a href='../index.php'>identificarse</a>.<br/>");
 }
+
+$clientes = $_SESSION['clientes'];
+$productos = $_SESSION['productos'];
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -15,38 +18,48 @@ if (!isset($_SESSION['usuario'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página de administración</title>
+    <link rel="stylesheet" href="../css/main.css">
 </head>
 <body>
 <h1>Bienvenido <?= $_SESSION['usuario'] ?></h1>
-<form method="get" action="login.php">
-    <input type="submit" name="logout" content="Cerrar Sesión">
-</form>
 
-<?=
-$clientes = $_SESSION['clientes'];
-$productos = $_SESSION['productos'];
+<section class="listaContainer">
+    <h2>Clientes</h2>
+    <ul>
+        <?php
+            // Mostramos los clientes
+            $i = 1;
+            foreach ($clientes as $clave => $valor) {
+                echo "<li>$i- $clave <button class='remove'>Eliminar</button></li>";
+                $i++;
+            }
+        ?>
+    </ul>
+</section>
 
-// Mostramos los clientes y productos
-$i = 1;
-echo "<p> Clientes: </p>";
-foreach ($clientes as $clave => $valor) {
-    echo "$i- $clave <button class='remove'>Eliminar</button><br/>";
-    $j++;
-}
-
-$j = 1;
-echo "<p> Productos: </p>";
-foreach ($productos as $clave => $valor) {
-    echo "$j- $clave<br/>";
-    $j++;
-}
-?>
+<section class="listaContainer">
+    <h2>Productos</h2>
+    <ul>
+        <?php
+            // Mostramos los productos
+            $i = 1;
+            foreach ($productos as $producto => $id) {
+                echo "<li>$i- $producto - ID: $id</li>";
+                $i++;
+            }
+        ?>
+    </ul>
+</section>
 
 <!-- Botón para acceder al formulario de registro de clientes -->
-<button onclick="location.href='formCreateClient.php'">Registrar nuevo cliente</button>
+<button class="btn" onclick="location.href='formCreateClient.php'">Registrar nuevo cliente</button>
 
 <!-- Botón para acceder al formulario de actualizar a clientes -->
-<button onclick="location.href='formUpdateCliente.php'">Actualizar cliente</button>
+<button class="btn" onclick="location.href='formUpdateCliente.php'">Actualizar cliente</button>
+
+<form method="get" action="login.php">
+    <input type="submit" name="logout" value="Logout">
+</form>
 
 
 <!-- Lógica de JS para confimar la eliminación del cliente -->

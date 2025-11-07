@@ -10,6 +10,7 @@ if (isset($_GET['exists'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página de creación de usuarios</title>
+    <link rel="stylesheet" href="../css/main.css">
 </head>
 <body>
     <form action="createClient.php" method="post">
