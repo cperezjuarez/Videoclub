@@ -23,18 +23,11 @@ class Client {
     private string $password;
 
     // Métodos
-    public function __construct(string $nom, int $numero, int $maxLloguerConcurrent = 3, string $username = '', string $password = '')
+    public function __construct(string $nom, int $numero, int $maxLloguerConcurrent = 3)
     {
         $this->nom = $nom;
         $this->setNumero($numero);
         $this->maxLloguerConcurrent = $maxLloguerConcurrent;
-        $this->setUsername($username);
-        $this->setPassword($password);
-
-        if ($username !== '') {
-            session_start();
-            $_SESSION['listaUsuarios']['nombre'] = $this->nom;
-        }
     }
 
     public function mostraResum(): string
@@ -133,6 +126,10 @@ class Client {
         }
 
         return $posicio;
+    }
+
+    public function getLlogers(): array {
+        return $this->soportsLlogats;
     }
 
 

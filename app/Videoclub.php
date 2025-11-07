@@ -294,6 +294,26 @@ class Videoclub
         return $this;
     }
 
+    // Añadir nobmre de usuario y contraseña al soci
+    public function assignarCredencialSoci(int $numSoci, string $username, string $password): self
+    {
+        $sociTrobat = false;
+        $i = 0;
+
+        // Cercam el soci
+        while(!$sociTrobat && $i < count($this->socis)) {
+            if ($this->socis[$i]->getNumero() === $numSoci) {
+                $sociTrobat = true;
+                $this->socis[$i]->setUsername($username);
+                $this->socis[$i]->setPassword($password);
+            } else {
+                $i++;
+            }
+        }
+
+        return $this;
+    }
+
     // Getters & setters
     public function getNom(): string
     {
@@ -358,5 +378,9 @@ class Videoclub
 
     public function setNumTotalLloguers(): void {
         $this->numTotalLloguers++;
+    }
+
+    public function getSocis(): array {
+        return $this->socis;
     }
 }
