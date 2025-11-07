@@ -30,6 +30,11 @@
             }
         ?>
      </ul>
+
+    <!-- Botón para acceder al formulario de actualizar a clientes -->
+    <button onclick="location.href='formUpdateCliente.php'">Actualizar cliente</button>
+
+     <!-- Botón de cierre de sesión -->
     <form method="get" action="login.php">
         <input type="submit" name="logout" content="Cerrar Sesión">
     </form>

@@ -45,5 +45,8 @@ foreach ($productos as $clave => $valor) {
 <!-- Botón para acceder al formulario de registro de clientes -->
 <button onclick="location.href='formCreateClient.php'">Registrar nuevo cliente</button>
 
+<!-- Botón para acceder al formulario de actualizar a clientes -->
+<button onclick="location.href='formUpdateCliente.php'">Actualizar cliente</button>
+
 </body>
 </html>
