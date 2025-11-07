@@ -45,7 +45,9 @@ if (isset($_POST['enviar'])) {
             if ($usuario == $cliente && $password == $valor) {
                 // almacenamos el usuario en la sesión
                 session_start();
-                $_SESSION['usuario'] = $usuario;
+                if(!isset($_SESSION['usuario'])) {
+                    $_SESSION['usuario'] = $usuario;
+                }
                 $encontrado = true;
 
                 // almacenamos los productos del cliente

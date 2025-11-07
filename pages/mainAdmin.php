@@ -26,6 +26,7 @@ if (!isset($_SESSION['usuario'])) {
 $clientes = $_SESSION['clientes'];
 $productos = $_SESSION['productos'];
 
+// Mostramos los clientes y productos
 $i = 1;
 echo "<p> Clientes: </p>";
 foreach ($clientes as $clave => $valor) {
@@ -40,5 +41,9 @@ foreach ($productos as $clave => $valor) {
     $j++;
 }
 ?>
+
+<!-- Botón para acceder al formulario de registro de clientes -->
+<button onclick="location.href='formCreateClient.php'">Registrar nuevo cliente</button>
+
 </body>
 </html>
