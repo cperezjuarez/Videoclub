@@ -294,7 +294,7 @@ class Videoclub
         return $this;
     }
 
-    // Añadir nobmre de usuario y contraseña al soci
+    // Añadir nombre de usuario y contraseña al soci
     public function assignarCredencialSoci(int $numSoci, string $username, string $password): self
     {
         $sociTrobat = false;
@@ -312,6 +312,31 @@ class Videoclub
         }
 
         return $this;
+    }
+
+    // Función para encontrar los productos de un cliente por su nombre de usuario
+    public function cercarProductesPerClient(string $username): array
+    {
+        // Buscamos el socio
+        $sociTrobat = false;
+        $i = 0;
+        $index = -1;
+
+        while (!$sociTrobat && $i < count($this->socis)) {
+            if ($this->socis[$i]->getUsername() === $username) {
+                $sociTrobat = true;
+                $index = $i;
+            } else {
+                $i++;
+            }
+        }
+
+        // Si se encuentra el socio, devolvemos sus productos
+        if ($sociTrobat) {
+            return $this->socis[$index]->getLlogers();
+        } else {
+            return [];
+        }
     }
 
     // Getters & setters

@@ -1,4 +1,8 @@
 <?php
+    // Incluimos las clases necesarias
+    include "../autoload.php";
+    use app\Videoclub;
+
     // Recuperamos la información de la sesión
     if(!isset($_SESSION)) {
         session_start();
@@ -17,7 +21,15 @@
     <title>Página de usuario</title>
 </head>
 <body>
-    <h1>Bienvenido <?= $_SESSION['usuario'] ?></h1>
+    <h1>Bienvenido <?= $_SESSION['usuario'] ?></h1> 
+    <!-- productos del cliente -->
+     <ul>
+        <?php 
+            foreach($_SESSION['productosCliente'] as $producto) {
+                echo "<li>" . $producto->titol . "</li>";
+            }
+        ?>
+     </ul>
     <form method="get" action="login.php">
         <input type="submit" name="logout" content="Cerrar Sesión">
     </form>

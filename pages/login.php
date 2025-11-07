@@ -13,9 +13,11 @@ $productos = array(
 include "../autoload.php";
 use app\Videoclub;
 
-// Creamos un videoclub y añadimos algunos socios
+// Creamos un videoclub y añadimos algunos socios y productos
 $vc = new Videoclub("Videoclub");
 $vc->incloureSoci("cloud");
+$vc->incloureJoc("Final Fantasy VII", 59.99, "PS4", 1, 1);
+$vc->llogarSociProducte(1, 1); // Simulamos que el socio 1 ha alquilado el producto 1
 
 // Añadimos las credenciales a los socios
 $vc->assignarCredencialSoci(1, "cloud", "cloud");
@@ -35,8 +37,9 @@ if (isset($_POST['enviar'])) {
     if (empty($usuario) || empty($password)) {
         echo "Debes introducir un usuario y contraseña";
         header("Location: ../index.php?error");
+
     } else if ($usuario != "admin" && $password != "admin") {
-            // USER
+        // USER
         $encontrado = false;
         foreach ($clientes as $cliente => $valor) {
             if ($usuario == $cliente && $password == $valor) {
@@ -44,6 +47,9 @@ if (isset($_POST['enviar'])) {
                 session_start();
                 $_SESSION['usuario'] = $usuario;
                 $encontrado = true;
+
+                // almacenamos los productos del cliente
+                $_SESSION['productosCliente'] = $vc->cercarProductesPerClient($usuario);
             }
         }
 
@@ -54,7 +60,8 @@ if (isset($_POST['enviar'])) {
             // redirigimos a la página de registro
             header("Location: ../index.php?error");
         }
-            // ADMIN
+
+        // ADMIN
     } else if ($usuario == "admin" && $password == "admin") {
         // almacenamos el usuario en la sesión
         session_start();
