@@ -15,7 +15,7 @@ if (isset($_POST['Actualizar'])) {
 
     // Comporbamos que el nuevo nombre de usuario no existe ya
     if ($username != $newUsername && array_key_exists($newUsername, $clientes)) {
-        die("Error - el nombre de usuario ya existe. <a href='formUpdateCliente.php'>Volver</a>.<br/>");
+        die("Error - el nombre de usuario ya existe. <a href='mainAdmin.php'>Volver</a>.<br/>");
     }
 
     // Actualizamos los datos del cliente en el array

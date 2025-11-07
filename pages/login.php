@@ -51,6 +51,8 @@ if (isset($_POST['enviar'])) {
                 // almacenamos el usuario en la sesión
                 session_start();
                 $_SESSION['usuario'] = $usuario;
+                $_SESSION['clientes'] = $clientes;
+                $_SESSION['productos'] = $productos;
                 $encontrado = true;
 
                 // almacenamos los productos del cliente

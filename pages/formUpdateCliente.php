@@ -22,10 +22,10 @@ $referer = $_SERVER['HTTP_REFERER'];
     <h1>Actualizar Cliente</h1>
     <form action="updateCliente.php" method="post">
         <?php
-        // Si venimos de mainAdmin.php, mostramos el selector de clientes
-        if ($referer == "http://localhost:8080/Videoclub/pages/mainAdmin.php") {
+        // Si venimos de mainAdmin.php (comprobando solo el nombre del archivo), mostramos el selector de clientes
+        if (basename(parse_url($referer, PHP_URL_PATH)) === "mainAdmin.php") {
             $_SESSION['admin'] = true;
-        ?>
+            ?>
             <label for="username">Seleccione el cliente a actualizar:</label>
             <select id="username" name="username" required>
                 <?php
@@ -35,7 +35,7 @@ $referer = $_SERVER['HTTP_REFERER'];
                 }
                 ?>
             </select><br><br>
-        <?php
+            <?php
         } else {
             $_SESSION["admin"] = false;
         }
