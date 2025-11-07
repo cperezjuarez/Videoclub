@@ -30,7 +30,7 @@ $productos = $_SESSION['productos'];
 $i = 1;
 echo "<p> Clientes: </p>";
 foreach ($clientes as $clave => $valor) {
-    echo "$i- $clave<br/>";
+    echo "$i- $clave <button class='remove'>Eliminar</button><br/>";
     $j++;
 }
 
@@ -47,6 +47,23 @@ foreach ($productos as $clave => $valor) {
 
 <!-- Botón para acceder al formulario de actualizar a clientes -->
 <button onclick="location.href='formUpdateCliente.php'">Actualizar cliente</button>
+
+
+<!-- Lógica de JS para confimar la eliminación del cliente -->
+<script>
+    let removeBtns = document.querySelectorAll('.remove');
+
+    removeBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            let borrar = confirm('¿Seguro que quieres eliminar este cliente?');
+            if (borrar) {
+                // Redirigimos a la página de eliminación
+                window.location.href = 'removeCliente.php?cliente=' + btn.previousSibling.textContent.trim().split('- ')[1];
+            };
+        });
+    });
+</script>
+
 
 </body>
 </html>
