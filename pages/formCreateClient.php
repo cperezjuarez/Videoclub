@@ -1,3 +1,9 @@
+<?php
+if (isset($_GET['exists'])) {
+    echo "el nombre de usuario ya existe, por favor elija otro.";
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
